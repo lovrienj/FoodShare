@@ -1,11 +1,16 @@
 
 window.alert("HEY YOUR JAVASCRIPT IS HERE");
 
-var addButton = document.getElementById("addButton");
+var addButtonItem = document.getElementById("addButton");
+var popUp = document.getElementById("addItemPopup");
 
-addButton.addEventListener("click", function(event){
-  var popUp = document.getElementById("addItemPopup");
-   popUp.style.visibility = "hidden";
-    
-};
-);
+addButtonItem.addEventListener("click", function(event){
+   popUp.style.visibility = "visible";
+});
+
+
+var submitButton = document.getElementById("submitButton");
+
+submitButton.addEventListener("click", function(event){
+    popUp.style.visibility = "hidden";
+});
