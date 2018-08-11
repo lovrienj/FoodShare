@@ -3,8 +3,10 @@
 <html>
     
 <head>
-    <script src="/js/pantryJava.js" defer></script>
     <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
+    <script src="/js/pantryJava.js" defer></script>
+    <link rel="stylesheet" href="/css/pantry.css">
+    <link href="https://fonts.googleapis.com/css?family=Corben|Lobster|Merriweather|Ranga" rel="stylesheet">
 </head>
  
     
@@ -12,17 +14,25 @@
     <center>
         <!-- Pantry  -->
         <h1>My Pantry</h1>
-        
+        <inline><button id="sortButton">SortbyExpo</button></inline>
+
+
         <!-- Add Item  -->
         <button id="addButton">Add To Pantry</button>
         
         
         <!--Invisible Popup  -->
         <div id="addItemPopup">
-        <p>HEY POPUPWORKS</p>    
-        <button id="submitButton">Submit</button>
+        <input type="text" id="foodName">   
+        <input type="date" id="expoDate">
+        <button id="submitButton" >Submit</button>
         </div>
         
+        <!-- Pantry Items Display-->
+        <div id="pantryItemDisplay">
+
+        </div>
+
     </center>
 </body>    
 </html>
