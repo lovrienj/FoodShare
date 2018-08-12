@@ -1,13 +1,29 @@
+
+
 body{
     padding: 50px 0px;
     background-color: #efefef;
-    font-family: 'Merriweather', serif;
-    /* font-family: 'Ranga', cursive; */
-    /* font-family: 'Corben', cursive; */
-    /* font-family: 'Lobster', cursive; */
+    font-family: 'Merriweather', serif;/
 
     color: #383131;
 }
+
+
+center{
+    margin: 0px auto;
+}
+@media screen and (min-width: 400px) {
+    center{width: 90%;}
+}
+@media screen and (min-width: 800px) {
+    center{width: 80%;}
+}
+@media screen and (min-width: 1200px) {
+    center{width: 60%;}
+}
+
+
+
 
 h1{
     font-size: 3em;
@@ -21,8 +37,6 @@ button:not(.delete){
     border-bottom: 2px solid #383131;
     border-left: 2px solid #383131;
 
-    /* background-color: white; */
-    /* border: 2px solid #383131; */
     padding: 5px;
     font-family: 'Merriweather', serif;
 
@@ -51,23 +65,26 @@ button:active{
 #addItemPopup{
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     align-items: stretch;
 
-    width: 60%;
+    width: 100%;
     margin: 25px auto;
 }
 
 input{
     flex-grow: 1;
-    font-size: 2em;
     text-transform: uppercase;
     letter-spacing: 1px;
     color: #383131;
-    font-weight: bold;    
+    font-weight: bold;  
+
     padding: 5px;
     border: 0px;
     margin: 0px 5px;
 
+    min-width: 250px;
+    height: 45px;
 
     box-shadow: inset 0px 0px 5px rgba(154, 154, 172, 0.639),
                     0px 0px 5px rgba(154, 154, 172, 0.639);
@@ -80,6 +97,7 @@ input:focus{
 
 #addItemPopup button{
     line-height: 3em;
+    flex-grow: 1;
 
 }
 
@@ -89,10 +107,10 @@ input:focus{
     justify-content: flex-start;
     align-items: center;
     
-    width: 60%;
+    width: 90%;
     min-height: 500px;
     margin: 5px auto;
-    padding: 15px;
+    padding: 5%;
     background-color: rgb(204, 166, 141);
     border-radius: 5px;
     box-shadow: 0px 1px 3px rgba(0,0,0,0.3);

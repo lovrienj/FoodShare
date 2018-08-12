@@ -51,13 +51,13 @@ pantryItemDisplay.addEventListener('click', function(event){
 
 function formatDate(unformattedDate){
     let splitDate = unformattedDate.split("-");
-    return `${splitDate[1].replace("0", "")}-${splitDate[2].replace("0", "")}-${splitDate[0].slice(2)}`;
+    return `${splitDate[1].replace(/0(?=[1-9])/, "")}-${splitDate[2].replace(/0(?=[1-9])/, "")}-${splitDate[0].slice(2)}`;
 }
 
 
 /*
 * this function adds a food item to the indexedDB
-*It is fired when the "submit" buton is hit and then it takes
+* It is fired when the "submit" buton is hit and then it takes
 * the values in teh boxes and saves them.
 */
 function addFoodItem(name, expoDate){
