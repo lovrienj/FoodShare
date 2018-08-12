@@ -3,6 +3,7 @@
 <html>
     
 <head>
+    <meta name="viewport" content="width=device-width">   
     <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
     <script src="/js/pantryJava.js" defer></script>
     <link rel="stylesheet" href="/css/pantry.css">
@@ -27,14 +28,16 @@
  
     
 <body>
-    <center>
+    <div class="container">
         <!-- Pantry  -->
         <h1>My Pantry</h1>
-        <inline><button id="sortButton">SortbyExpo</button></inline>
+        <div id="button-container">
+            <button id="sortButton">SortbyExpo</button>
+            <button id="addButton">Add To Pantry</button>
+        </div>
 
 
         <!-- Add Item  -->
-        <button id="addButton">Add To Pantry</button>
         
         
         <!--Invisible Popup  -->
@@ -49,7 +52,7 @@
 
         </div>
 
-    </center>
+    </div>    
 
     <!-- the script with tests (describe, it...) -->
     <script src="/js/test.js"></script>

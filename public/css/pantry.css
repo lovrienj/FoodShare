@@ -9,25 +9,38 @@ body{
 }
 
 
-center{
+.container{
     margin: 0px auto;
-}
-@media screen and (min-width: 400px) {
-    center{width: 90%;}
-}
-@media screen and (min-width: 800px) {
-    center{width: 80%;}
-}
-@media screen and (min-width: 1200px) {
-    center{width: 60%;}
+    width: 60%;
 }
 
+/* Smartphones (portrait) ----------- */
+@media only screen 
+and (max-width : 499px) {
+    .container{
+        width: 90%;
+    }
+}
 
-
+/* Tablets (portrait) ----------- */
+@media only screen 
+and (min-width : 500px)
+and (max-width : 1024px) {
+    .container{
+        width: 80%;
+    }
+}
 
 h1{
     font-size: 3em;
+    text-align: center;
 }
+
+#button-container{
+    display: flex;
+    justify-content: center;
+}
+
 
 button:not(.delete){
     color: #383131;
@@ -38,8 +51,8 @@ button:not(.delete){
     border-left: 2px solid #383131;
 
     padding: 5px;
+    margin: 5px;
     font-family: 'Merriweather', serif;
-
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: bold;
@@ -81,7 +94,7 @@ input{
 
     padding: 5px;
     border: 0px;
-    margin: 0px 5px;
+    margin: 5px 5px;
 
     min-width: 250px;
     height: 45px;
