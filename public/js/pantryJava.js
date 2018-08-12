@@ -90,13 +90,10 @@ function createPantryItem(item){
 
 function expirationCheck(item){
     var today = new Date();
-    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    var dateTime = date+' '+time;
-    let daystoExpiration = Math.abs(new Date()-item.expoDateSpan); //is expoDate is a "Date" object?
-    console.log("the time until expiration:",daystoExpiration );
+    var expirationtime= new Date(item.expoDateSpan);
+    let daystoExpiration = Math.abs(today.gettime()-expirationtime.gettime()); 
+    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+    alert(diffDays);
     //should then write a loop to go through all the foods in pantry and print it 
 }
 
