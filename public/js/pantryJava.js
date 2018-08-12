@@ -30,10 +30,10 @@ submitButton.addEventListener("click", function(event){
 });
 
 
-//This event listener is on the whole pantry div
-//When anywhere on teh pantry is clicked, this gets triggered. 
-//It then checks the id of what actually fired, and 
-//if it was a delete button, then it will delete that item from the DB
+// This event listener is on the whole pantry div
+// When anywhere on the pantry is clicked, this gets triggered. 
+// It then checks the id of what actually fired, and 
+// if it was a delete button, then it will delete that item from the DB
 pantryItemDisplay.addEventListener('click', function(event){
     if(event.target.classList.contains("delete"))
     {
@@ -75,6 +75,8 @@ function addFoodItem(name, expoDate){
 
 
 function createPantryItem(item){
+    console.dir(item);
+    
     newElement = document.createElement("div");
     newElement.textContent = item.name;
 
@@ -85,6 +87,9 @@ function createPantryItem(item){
         expoDateSpan.textContent = formatDate(item.expoDate);
         newElement.appendChild(expoDateSpan);
     }
+
+
+
 
     var deleteButton = document.createElement("button");
     deleteButton.classList.add("delete");
@@ -115,7 +120,7 @@ function displayPantry(){
 // Define the database
 const db = new Dexie("foodshare_database");
 db.version(1).stores({
-    foodItems: 'i++,name,expoDate'
+    foodItems: 'id++,name,expoDate'
 });
 
 displayPantry();
