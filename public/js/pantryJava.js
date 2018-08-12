@@ -87,19 +87,6 @@ function createPantryItem(item){
         expoDateSpan.textContent = formatDate(item.expoDate);
         newElement.appendChild(expoDateSpan);
     }
-
-function expirationCheck(item){
-    var today = new Date();
-    var expirationtime= new Date(item.expoDateSpan);
-    let daystoExpiration = Math.abs(today.gettime()-expirationtime.gettime()); 
-    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-    alert(diffDays);
-    //should then write a loop to go through all the foods in pantry and print it 
-}
-
-
-
-
     var deleteButton = document.createElement("button");
     deleteButton.classList.add("delete");
     deleteButton.textContent = "X";
@@ -145,3 +132,11 @@ displayPantry();
 // }).catch(function(error) {
 //     alert ("Ooops: " + error);
 // });
+function expirationCheck(item){
+    var today = new Date();
+    var expirationtime= new Date(item.expoDate);
+    let daystoExpiration = Math.abs(today.gettime()-expirationtime.gettime()); 
+    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+    alert(diffDays);
+    //should then write a loop to go through all the foods in pantry and print it 
+}
