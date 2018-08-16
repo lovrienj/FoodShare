@@ -142,6 +142,14 @@ pantryItemDisplay.addEventListener('click', function(event){
     }
 });
 
+// Register Service Worker
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+             .register('/service-worker.js')
+             .then(function() { console.log('Service Worker Registered'); });
+}
+
+
 // Define the database
 const db = new Dexie("foodshare_database");
 db.version(1).stores({
