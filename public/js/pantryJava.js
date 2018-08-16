@@ -37,17 +37,29 @@ submitButton.addEventListener("click", function(event){
 pantryItemDisplay.addEventListener('click', function(event){
     if(event.target.classList.contains("delete"))
     {
-        var itemToDeleteStr = event.target.getAttribute("buttonItem");
-        var itemToDelete = Number(itemToDeleteStr);
+        removePantryItem(event.target);
+        // var itemToDeleteStr = event.target.getAttribute("buttonItem");
+        // var itemToDelete = Number(itemToDeleteStr);
 
-        console.log("Trying to delete item w/ id ", itemToDelete);
-        //help with delete from: https://stackoverflow.com/questions/46497137/dexie-js-table-deleteid-not-working-for-per-row-deletion
-        db.foodItems.where(":id").equals(itemToDelete).delete()
-            .then(()=>{
-                slideOut(event.target.parentNode, 200);
-            });
+        // console.log("Trying to delete item w/ id ", itemToDelete);
+        // //help with delete from: https://stackoverflow.com/questions/46497137/dexie-js-table-deleteid-not-working-for-per-row-deletion
+        // db.foodItems.where(":id").equals(itemToDelete).delete()
+        //     .then(()=>{
+        //         slideOut(event.target.parentNode, 200);
+        //     });
     }
 });
+
+function removePantryItem(elem){
+    var itemToDelete = Number(elem.getAttribute("buttonItem"));
+
+    console.log("Trying to delete item w/ id ", itemToDelete);
+    //help with delete from: https://stackoverflow.com/questions/46497137/dexie-js-table-deleteid-not-working-for-per-row-deletion
+    db.foodItems.where(":id").equals(itemToDelete).delete()
+        .then(()=>{
+            slideOut(event.target.parentNode, 200);
+        });    
+}
 
 function formatDate(unformattedDate){
     let splitDate = unformattedDate.split("-");
@@ -94,6 +106,9 @@ function createPantryItem(item){
     newElement.appendChild(deleteButton);
 
     pantryItemDisplay.appendChild(newElement);
+
+    console.log("returning", newElement);
+    return newElement;
 }
 
 function displayPantry(){
@@ -119,7 +134,7 @@ db.version(1).stores({
     foodItems: 'id++,name,expoDate'
 });
 
-displayPantry();
+// displayPantry();
 
 // console.log(db);
 
