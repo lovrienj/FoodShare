@@ -3,11 +3,11 @@ var cacheName = 'FoodShare';
 var filesToCache = [
     "/",
     "/index.html",
-    "/pantry.html",
-    "/css/pantry.css",
-    "/js/pantryJava.js",
+    "/css/main.css",
+    "/js/main.js",
     "/js/dexie.js", 
-    "/icons/icon-32.png"
+    "/icons/icon-32.png",
+    "/icons/icon-128.png"
 ];
 
 self.addEventListener('install', function(e) {

@@ -113,9 +113,15 @@ var addButtonItem = document.getElementById("addButton");
 var popUp = document.getElementById("addItemPopup");
 var submitButton = document.getElementById("submitButton");
 const pantryItemDisplay = document.getElementById("pantryItemDisplay");
-
+const navOptions = document.querySelectorAll("nav div");
 
 // Event Listeners
+navOptions.forEach(elem => {
+    addEventListener("click", function(event){
+        
+    });
+});
+
 addButtonItem.addEventListener("click", function(event){
    popUp.style.visibility = "visible";
 });
