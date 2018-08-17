@@ -13,6 +13,12 @@
             "src": "icons/icon-128.png",
             "sizes": "128x128",
             "type": "image/png"
+        },
+        
+        {
+            "src": "icons/icon-761x724.png",
+            "sizes": "761x724",
+            "type": "image/png"
         }
     ],
     "start_url": "/index.html", 
