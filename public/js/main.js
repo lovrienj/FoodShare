@@ -11,7 +11,7 @@ function slideOut(elem, duration){
 function removePantryItem(elem){
     var itemToDelete = Number(elem.getAttribute("buttonItem"));
 
-    console.log("Trying to delete item w/ id ", itemToDelete);
+    // console.log("Trying to delete item w/ id ", itemToDelete);
     //help with delete from: https://stackoverflow.com/questions/46497137/dexie-js-table-deleteid-not-working-for-per-row-deletion
     db.foodItems.where(":id").equals(itemToDelete).delete()
         .then(()=>{
@@ -34,14 +34,6 @@ function expirationCheck(item){
 }
 
 
-function putWrapper(param){
-    console.log("put called with param:");
-    console.dir(param);
-
-    return  db.foodItems.put(param);
-}
-
-
 /*
 * this function adds a food item to the indexedDB
 * It is fired when the "submit" buton is hit and then it takes
@@ -49,15 +41,7 @@ function putWrapper(param){
 */
 function addFoodItem(name, expoDate){
     
-    // db.foodItems.put({name: name, expoDate: expoDate}).then(function(id){
-    //     return db.foodItems.get(id);
-    // }).then(function (foodItem){
-    //     //after adding item, adding to display
-    //     createPantryItem(foodItem);
-    // }).catch(function(error) {
-    //     alert ("Ooops: " + error);
-    // });  
-    putWrapper({name: name, expoDate: expoDate}).then(function(id){
+    db.foodItems.put({name: name, expoDate: expoDate}).then(function(id){
         return db.foodItems.get(id);
     }).then(function (foodItem){
         //after adding item, adding to display
@@ -88,11 +72,11 @@ function createPantryItem(item){
 
     pantryItemDisplay.appendChild(newElement);
 
-    console.log("returning", newElement);
+    ""
     return newElement;
 }
 
-function displayPantry(){
+function populatePantry(){
     /*
     For each item in DB
     make flex box
@@ -103,10 +87,39 @@ function displayPantry(){
 
     let newElement;
     db.foodItems.each(item => {
-        console.log("in display each loop");
+        ""
         createPantryItem(item);
     })  
 }
+
+const displayContent = (() => {
+    const transitionDuration = 100;
+    
+    let currentContent;
+
+    return elem => {
+        
+        if (elem === currentContent) return;
+        
+        if (currentContent != undefined){
+            currentContent.style.opacity = 0;
+
+            setTimeout(()=>{
+                currentContent.style.display = "none";
+
+                currentContent = elem;
+                currentContent.style.display = "block";
+                currentContent.style.opacity = 1;
+            }, transitionDuration)
+        }
+
+        else {
+            currentContent = elem;
+            currentContent.style.display = "block";
+            currentContent.style.opacity = 1;
+        }
+    }    
+})();
 
 // DOM Selections
 var addButtonItem = document.getElementById("addButton");
@@ -114,11 +127,14 @@ var popUp = document.getElementById("addItemPopup");
 var submitButton = document.getElementById("submitButton");
 const pantryItemDisplay = document.getElementById("pantryItemDisplay");
 const navOptions = document.querySelectorAll("nav div");
+const content = document.querySelectorAll(".content");
+
+
 
 // Event Listeners
 navOptions.forEach(elem => {
-    addEventListener("click", function(event){
-        
+    elem.addEventListener("click", function(event){
+        displayContent(content[elem.getAttribute("key")]);
     });
 });
 
@@ -127,7 +143,7 @@ addButtonItem.addEventListener("click", function(event){
 });
 
 submitButton.addEventListener("click", function(event){
-    console.log("clickin'");
+    ""
     
     var foodInput = document.getElementById("foodName"),
         expoDate = document.getElementById("expoDate");
@@ -163,4 +179,5 @@ db.version(1).stores({
 });
 
 // Display the current pantry
-displayPantry();
+populatePantry();
+displayContent(content[0]);
