@@ -63,4 +63,19 @@ describe("removePantryItem", ()=>{
     });
 });
 
+
+describe('testing dates in js', function () {
+
+    beforeEach(() => {
+        let today = moment('2018-08-17').toDate();
+        jasmine.clock().mockDate(currentTime);
+    });
+
+    it('should return the difference between today', () => {
+        let item.expoDate = moment('2018-08-19');
+        expect(2).timeDifference(item.expoDate));
+    });
+
+});
+
 // mocha.run();
