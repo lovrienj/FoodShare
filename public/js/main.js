@@ -56,8 +56,6 @@ function addFoodItem(name, expoDate){
 }
 
 function createPantryItem(item){
-    console.dir(item);
-    
     let newElement = document.createElement("div");
     newElement.textContent = item.name;
 
@@ -103,8 +101,6 @@ const pantry = {
         })  
     },
     sortByExpo: function(){
-        console.log(this.items);
-        
         this.items.sort((itemA, itemB)=>{
             if (itemA.expoDate == "") return true;
             
