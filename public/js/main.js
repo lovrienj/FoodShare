@@ -48,8 +48,16 @@ function addFoodItem(name, expoDate){
         return db.foodItems.get(id);
     }).then(function (foodItem){
         //after adding item, adding to display
+        
         pantry.items.push(foodItem);
-        createPantryItem(foodItem);
+        
+        if (!pantry.sorted){
+            createPantryItem(foodItem);
+        }
+        else{
+            pantry.sortByExpo();
+        }
+
     }).catch(function(error) {
         alert ("Ooops: " + error);
     });  
@@ -74,12 +82,12 @@ function createPantryItem(item){
 
     pantryItemDisplay.appendChild(newElement);
 
-    ""
     return newElement;
 }
 
 const pantry = {
     items: [],
+    sorted: false,
     init: async function(){
         await db.foodItems.each(item => {
             this.items.push(item);
@@ -106,7 +114,7 @@ const pantry = {
             
             return new Date(itemA.expoDate) > new Date(itemB.expoDate);
         })
-
+        this.sorted = true;
         this.populatePantry();
     }
 }
