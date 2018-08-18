@@ -25,13 +25,10 @@ function formatDate(unformattedDate){
     return `${splitDate[1].replace(/^0/, "")}-${splitDate[2].replace(/^0/, "")}-${splitDate[0].slice(2)}`;
 }
 
-function expirationCheck(item){
-    var today = new Date();
-    var expirationtime= new Date(item.expoDate);
-    let daystoExpiration = Math.abs(today.gettime()-expirationtime.gettime()); 
-    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-    alert(diffDays);
-    //should then write a loop to go through all the foods in pantry and print it 
+function timeDifference(item){
+    let today = moment();
+    let expiration= moment(item.expoDate);
+    return expiration.diff(today,'days')
 }
 
 
