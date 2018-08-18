@@ -25,7 +25,7 @@ function formatDate(unformattedDate){
     return `${splitDate[1].replace(/^0/, "")}-${splitDate[2].replace(/^0/, "")}-${splitDate[0].slice(2)}`;
 }
 
-function timeDifference(item.expoDate){
+function timeDifference(item){
     let today = moment();
     let expiration= moment(item.expoDate);
     return expiration.diff(today,'days')
