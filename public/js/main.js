@@ -1,3 +1,5 @@
+'use strict';
+
 function slideOut(elem, duration){
     elem.style.transition = "all " + duration + "ms";
     elem.style.opacity = 0;
@@ -11,10 +13,9 @@ function slideOut(elem, duration){
 function removePantryItem(elem){
     var itemToDelete = Number(elem.getAttribute("buttonItem"));
 
-    // console.log("Trying to delete item w/ id ", itemToDelete);
-    //help with delete from: https://stackoverflow.com/questions/46497137/dexie-js-table-deleteid-not-working-for-per-row-deletion
     db.foodItems.where(":id").equals(itemToDelete).delete()
         .then(()=>{
+            pantry.items = pantry.items.filter(item => item.id != itemToDelete);
             slideOut(elem.parentNode, 200);
         });    
 }
@@ -41,10 +42,13 @@ function expirationCheck(item){
 */
 function addFoodItem(name, expoDate){
     
+    if (expoDate != "") expoDate = formatDate(expoDate);
+
     db.foodItems.put({name: name, expoDate: expoDate}).then(function(id){
         return db.foodItems.get(id);
     }).then(function (foodItem){
         //after adding item, adding to display
+        pantry.items.push(foodItem);
         createPantryItem(foodItem);
     }).catch(function(error) {
         alert ("Ooops: " + error);
@@ -54,14 +58,14 @@ function addFoodItem(name, expoDate){
 function createPantryItem(item){
     console.dir(item);
     
-    newElement = document.createElement("div");
+    let newElement = document.createElement("div");
     newElement.textContent = item.name;
 
     if(item.expoDate != "")
     {    
         var expoDateSpan = document.createElement("span");
         expoDateSpan.classList.add("expoDate");
-        expoDateSpan.textContent = formatDate(item.expoDate);
+        expoDateSpan.textContent = item.expoDate;
         newElement.appendChild(expoDateSpan);
     }
     var deleteButton = document.createElement("button");
@@ -76,21 +80,41 @@ function createPantryItem(item){
     return newElement;
 }
 
-function populatePantry(){
-    /*
-    For each item in DB
-    make flex box
-    and put in flex container
-    */
+const pantry = {
+    items: [],
+    init: async function(){
+        await db.foodItems.each(item => {
+            this.items.push(item);
+        })
+        
+        this.populatePantry();
+    },
+    populatePantry: function(){
+        /*
+        For each item in items array
+        create a DOM element and append
+        to pantryItemDisplay
+        */
+    
+        pantryItemDisplay.innerHTML = "";
+    
+        this.items.forEach(item => {
+            createPantryItem(item);
+        })  
+    },
+    sortByExpo: function(){
+        console.log(this.items);
+        
+        this.items.sort((itemA, itemB)=>{
+            if (itemA.expoDate == "") return true;
+            
+            return new Date(itemA.expoDate) > new Date(itemB.expoDate);
+        })
 
-    pantryItemDisplay.innerHTML = "";
-
-    let newElement;
-    db.foodItems.each(item => {
-        ""
-        createPantryItem(item);
-    })  
+        this.populatePantry();
+    }
 }
+
 
 const displayContent = (() => {
     const transitionDuration = 100;
@@ -122,14 +146,13 @@ const displayContent = (() => {
 })();
 
 // DOM Selections
-var addButtonItem = document.getElementById("addButton");
-var popUp = document.getElementById("addItemPopup");
-var submitButton = document.getElementById("submitButton");
+const addButton = document.getElementById("addButton");
+const sortButton = document.getElementById("sortButton");
+const popUp = document.getElementById("addItemPopup");
+const submitButton = document.getElementById("submitButton");
 const pantryItemDisplay = document.getElementById("pantryItemDisplay");
 const navOptions = document.querySelectorAll("nav div");
 const content = document.querySelectorAll(".content");
-
-
 
 // Event Listeners
 navOptions.forEach(elem => {
@@ -138,13 +161,15 @@ navOptions.forEach(elem => {
     });
 });
 
-addButtonItem.addEventListener("click", function(event){
+addButton.addEventListener("click", function(event){
    popUp.style.visibility = "visible";
 });
 
+sortButton.addEventListener("click", function(event){
+    pantry.sortByExpo();
+});
+
 submitButton.addEventListener("click", function(event){
-    ""
-    
     var foodInput = document.getElementById("foodName"),
         expoDate = document.getElementById("expoDate");
     
@@ -179,5 +204,5 @@ db.version(1).stores({
 });
 
 // Display the current pantry
-populatePantry();
+pantry.init();
 displayContent(content[0]);
